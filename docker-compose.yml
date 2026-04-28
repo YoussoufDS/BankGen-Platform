@@ -1,0 +1,55 @@
+services:
+
+  # 1. BankGen API (FastAPI)
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    container_name: bankgen-api
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test: ["CMD","python","-c",
+             "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+
+  # 2. Streamlit Dashboard
+  dashboard:
+    build:
+      context: .
+      dockerfile: Dockerfile.dashboard
+    container_name: bankgen-dashboard
+    restart: unless-stopped
+    ports:
+      - "8501:8501"
+    environment:
+      - API_URL=http://api:8000
+      - SF_ACCOUNT=${SF_ACCOUNT:-}
+      - SF_USER=${SF_USER:-}
+      - SF_PASSWORD=${SF_PASSWORD:-}
+      - SF_WAREHOUSE=${SF_WAREHOUSE:-COMPUTE_WH}
+      - SF_DATABASE=${SF_DATABASE:-BANKGEN_DB}
+      - SF_SCHEMA=${SF_SCHEMA:-BANKING}
+      - SF_ROLE=${SF_ROLE:-SYSADMIN}
+    depends_on:
+      api:
+        condition: service_healthy
+
+  # 3. Landing page (Python simple HTTP server - pas de Nginx)
+  landing:
+    image: python:3.12-slim
+    container_name: bankgen-landing
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - ./landing:/app
+    working_dir: /app
+    command: python -m http.server 80
+
+networks:
+  default:
+    name: bankgen-network
