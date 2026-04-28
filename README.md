@@ -7,49 +7,49 @@
 
 ## 🏠 Page d'accueil
 
-![Page d'accueil](accueil%201.png)
+![Page d'accueil](images/accueil%201.png)
 
-![Page d'accueil 2](accueil2.png)
+![Page d'accueil 2](images/accueil2.png)
 
 ---
 
 ## ⚡ Abdouramane's API
 
-![API Home](api.png)
+![API Home](images/api.png)
 
-![API Endpoints](api1.png)
+![API Endpoints](images/api1.png)
 
-![API Swagger](api2.png)
+![API Swagger](images/api2.png)
 
-![API JSON](api3.png)
+![API JSON](images/api3.png)
 
 ---
 
 ## 📊 Dashboard Temps Réel (Docker)
 
-![Dashboard Live](dashboard.png)
+![Dashboard Live](images/dashboard.png)
 
-![Fraude en temps réel](fraude%20en%20temps%20reel.png)
+![Fraude en temps réel](images/fraude%20en%20temps%20reel.png)
 
-![Transactions](transactions.png)
+![Transactions](images/transactions.png)
 
 ---
 
 ## ❄️ Snowflake Analytics
 
-![Snowflake Analytics](snowflake%20analytics.png)
+![Snowflake Analytics](images/snowflake%20analytics.png)
 
-![Streamlit App Snowflake](streamlit%20app_snowflake.png)
+![Streamlit App Snowflake](images/streamlit%20app_snowflake.png)
 
-![Snowflake SQL](snowflake_sql.png)
+![Snowflake SQL](images/snowflake_sql.png)
 
-![Snowflake](snowflake.png)
+![Snowflake](images/snowflake.png)
 
 ---
 
 ## 📡 JSON Stream
 
-![JSON Stream](json.png)
+![JSON Stream](images/json.png)
 
 ---
 
@@ -107,7 +107,7 @@ openssl rsa -in rsa_key.pem -pubout -out rsa_key.pub
 
 ### 3. Enregistrer la clé dans Snowflake
 ```sql
-ALTER USER WALRUS SET RSA_PUBLIC_KEY='...contenu de rsa_key.pub...';
+ALTER USER ton_username SET RSA_PUBLIC_KEY='...contenu de rsa_key.pub...';
 ```
 
 ### 4. Initialiser les tables Snowflake
@@ -147,6 +147,7 @@ bankgen-platform/
 ├── requirements.txt           ← Dépendances Python
 ├── .env.example               ← Template variables Snowflake
 ├── .gitignore                 ← Protège clés RSA et .env
+├── images/                    ← Captures d'écran du projet
 ├── landing/
 │   └── index.html             ← Page d'accueil avec métriques live
 └── sql/
@@ -173,15 +174,13 @@ WALRUS_DB.BANKING
 
 ## 🏢 Applications en entreprise
 
-Ce projet simule exactement ce que font les équipes data en production dans une banque ou fintech :
-
 | Ce projet | Équivalent production |
 |-----------|----------------------|
 | Générateur SSE FastAPI | Kafka / Kinesis / événements core banking |
 | Insertion Snowflake directe | Fivetran / Spark Structured Streaming |
 | Dashboard Docker temps réel | Grafana / Power BI Premium Real-Time |
 | Snowflake Streamlit App | Tableau / Power BI / Looker |
-| Auth RSA PKCS8 | Gestion des secrets enterprise (Vault, Azure Key Vault) |
+| Auth RSA PKCS8 | Vault / Azure Key Vault |
 
 ---
 
